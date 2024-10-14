@@ -16,7 +16,9 @@ from dotenv import load_dotenv
 from django.templatetags.static import static
 
 
-load_dotenv()
+# load_dotenv() # on Development
+load_dotenv('/home/NooR2MaseR/dj-1/.env') # on Production
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,7 +32,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ('noor2maser.pythonanywhere.com', '127.0.0.1', 'localhost')
+# ALLOWED_HOSTS = ('127.0.0.1', 'localhost') # on Development
+ALLOWED_HOSTS = ('noor2maser.pythonanywhere.com',) # on Production
 
 
 # Application definition
