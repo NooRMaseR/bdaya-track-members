@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from django.templatetags.static import static
+from import_export.formats.base_formats import XLSX, CSV, JSON
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -139,6 +140,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = (BASE_DIR / "static",)
 STATIC_ROOT = BASE_DIR / "static_files"
+
+IMPORT_EXPORT_FORMATS = (XLSX, CSV, JSON)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
