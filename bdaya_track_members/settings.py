@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from django.templatetags.static import static
+from django.utils.translation import gettext_lazy as _
 from import_export.formats.base_formats import XLSX, CSV, JSON
 
 
@@ -62,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'bdaya_track_members.urls'
@@ -125,12 +127,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+LOCALE_PATHS = (BASE_DIR / "locale",)
+LOCALS = (
+    ("en", _('English')),
+    ("ar", _('Arabic')),
+)
 
 TIME_ZONE = 'Africa/Cairo'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -148,18 +153,18 @@ IMPORT_EXPORT_FORMATS = (XLSX, CSV, JSON)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 UNFOLD = {
-    "SITE_TITLE": "Bdaya",
-    "SITE_HEADER": "BDaya Team",
+    "SITE_TITLE": _("Bdaya By NooR MaseR"),
+    "SITE_HEADER": _("BDaya Team"),
     "SITE_ICON": {
-        "light": lambda _: static("bdaya.PNG"),
-        "dark": lambda _: static("bdaya.PNG")
+        "light": lambda _: static("images/favicon.ico"),
+        "dark": lambda _: static("images/favicon.ico")
     },
     "SITE_FAVICONS": [
         {
             "rel": "icon",
             "sizes": "32x32",
-            "type": "image/png",
-            "href": lambda _: static("bdaya.PNG"),
+            "type": "image/x-icon",
+            "href": lambda _: static("images/favicon.ico"),
         },
     ],
 }

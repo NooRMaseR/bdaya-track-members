@@ -9,18 +9,31 @@ class CODES(Enum):
     FRONTEND = 'f'
 
 
-def validate_user_code(code: str) -> None:
-    """Validate the Student Code\n
+def validate_user_code(code: str, track_code: CODES) -> None:
+    """
+    Validate the Student Code
+    
     the code must start with any of the valid codes
 
     Args:
         code (str): the student code (the numbers part)
+        track_code (CODES): the track to validate
 
     Raises:
+        ValidationError: if the first litter is not exists
+        ValidationError: if `-` is not exists after the first litter
         ValidationError: if the rest of code are not numbers
     """
     
-    if not code.isnumeric():
+    litter, dash, rest_code = (code[0], code[1], code[2:])
+    
+    if litter.lower() != CODES.PYTHON.value:
+        raise ValidationError(f"The First Litter Must Be Valid Code for this track which is \"{track_code.value}\"")
+    
+    if dash != "-":
+        raise ValidationError(f"there must be a \"-\" after {track_code.value} like this \"{track_code.value}-\"")
+    
+    if not rest_code.isnumeric():
         raise ValidationError("This is Not A Valid Code")
 
 def validate_py_code(full_code: str) -> None:
@@ -29,18 +42,13 @@ def validate_py_code(full_code: str) -> None:
 
     Args:
         full_code (str): the student code
-        requeired_code (str): the track code to check
 
     Raises:
         ValidationError: if the first litter is not exists
+        ValidationError: if `-` is not exists after the first litter
         ValidationError: if the rest of code are not numbers
     """
-    litter ,code = full_code[0], full_code[2:]
-    
-    if not litter.lower() == CODES.PYTHON.value:
-        raise ValidationError(f"The First Litter Must Be Valid Code for this track which is \"{CODES.PYTHON.value}\"")
-    
-    validate_user_code(code)
+    validate_user_code(full_code, CODES.PYTHON)
 
 def validate_csharp_code(full_code: str) -> None:
     """Validate a C# Student Code\n
@@ -48,18 +56,13 @@ def validate_csharp_code(full_code: str) -> None:
 
     Args:
         full_code (str): the student code
-        requeired_code (str): the track code to check
 
     Raises:
         ValidationError: if the first litter is not exists
+        ValidationError: if `-` is not exists after the first litter
         ValidationError: if the rest of code are not numbers
     """
-    litter ,code = full_code[0], full_code[2:]
-    
-    if not litter.lower() == CODES.CSHARP.value:
-        raise ValidationError(f"The First Litter Must Be Valid Code for this track which is \"{CODES.CSHARP.value}\"")
-    
-    validate_user_code(code)
+    validate_user_code(full_code, CODES.CSHARP)
 
 def validate_graphic_desgin_code(full_code: str) -> None:
     """Validate a Graphic Desgin Student Code\n
@@ -67,16 +70,11 @@ def validate_graphic_desgin_code(full_code: str) -> None:
 
     Args:
         full_code (str): the student code
-        requeired_code (str): the track code to check
 
     Raises:
         ValidationError: if the first litter is not exists
+        ValidationError: if `-` is not exists after the first litter
         ValidationError: if the rest of code are not numbers
     """
-    litter ,code = full_code[0], full_code[2:]
-    
-    if not litter.lower() == CODES.GraphicDesgin.value:
-        raise ValidationError(f"The First Litter Must Be Valid Code for this track which is \"{CODES.GraphicDesgin.value}\"")
-    
-    validate_user_code(code)
+    validate_user_code(full_code, CODES.GraphicDesgin)
     

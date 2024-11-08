@@ -6,6 +6,7 @@ from main.models import CCharpMember, GraphicDesginMember, PythonMember
 from unfold.contrib.import_export.forms import ExportForm, ImportForm
 from main.recorces import CCharpMemberResource, PythonMemberResource
 from import_export.admin import ImportExportModelAdmin
+from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin
 
 
@@ -22,10 +23,11 @@ class GroupAdmin(BaseGroupAdmin, ModelAdmin): ...
 
 # Register your models here.
 @admin.register(PythonMember, CCharpMember, GraphicDesginMember)
-class MembersModel(ModelAdmin, ImportExportModelAdmin):
+class MembersModel(ModelAdmin, ImportExportModelAdmin): # type: ignore
+    list_display = ("username", "user_code", "points")
     search_fields = ("user_code", "username")
-    search_help_text = "Search By code or username"
+    search_help_text = _("Search By code or username")
     list_per_page = 30
     export_form_class = ExportForm
     import_form_class = ImportForm
-    resource_classes = [PythonMemberResource, CCharpMemberResource]
+    resource_classes = (PythonMemberResource, CCharpMemberResource)
